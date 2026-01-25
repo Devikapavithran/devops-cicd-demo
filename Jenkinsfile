@@ -11,9 +11,9 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 sh '''
-                sudo docker stop devops-cicd-demo || true
-                sudo docker rm devops-cicd-demo || true
-                sudo docker run -d --name devops-cicd-demo -p 5000:5000 devops-cicd-demo
+                sh 'docker build -t devops-cicd-demo .'
+                sh 'docker rm -f devops-cicd-demo || true'
+                sh 'docker run -d -p 5000:5000 --name devops-cicd-demo devops-cicd-demo'
                 '''
             }
         }
